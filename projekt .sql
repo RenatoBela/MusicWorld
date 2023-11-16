@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 12, 2021 at 10:03 PM
--- Server version: 10.4.18-MariaDB
--- PHP Version: 8.0.3
+-- Generation Time: Nov 16, 2023 at 02:25 PM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,6 +24,54 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `articles`
+--
+
+CREATE TABLE `articles` (
+  `article_id` varchar(255) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `description` text DEFAULT NULL,
+  `imageurl` varchar(255) DEFAULT NULL,
+  `articleurl` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_croatian_ci;
+
+--
+-- Dumping data for table `articles`
+--
+
+INSERT INTO `articles` (`article_id`, `title`, `description`, `imageurl`, `articleurl`) VALUES
+('Marshall Monitor II review: Heavy Metal headphone heroes', 'Marshall Monitor II review: Heavy Metal headphone heroes', 'Marshall’s Monitor II are a great pair of headphones, and as you’d expect, they really shine for the rock lover in you.', 'https://cdn.mos.cms.futurecdn.net/qQRmTM4HQB4GSUTHct4QGc-1200-80.jpg', 'https://www.imore.com/airpods/marshall-monitor-ii-review-heavy-metal-headphone-heroes'),
+('Marshall Motif II Review: Rockin\' AirPods Pro\'s rarefied reign', 'Marshall Motif II Review: Rockin\' AirPods Pro\'s rarefied reign', 'Little black buds for the discerning heavy music fan — but how good are they?', 'https://cdn.mos.cms.futurecdn.net/4ocsufXdwiRDwasMMzRjuW-1200-80.jpg', 'https://www.imore.com/airpods/marshall-motif-ii-review-rockin-airpods-pro-alikes'),
+('Metallica returns to St. Louis with 2 shows and a weekend of events planned', 'Metallica returns to St. Louis with 2 shows and a weekend of events planned', 'Metallica performs Nov. 3 and Nov. 5 at the Dome at America\'s Center.', 'https://bloximages.newyork1.vip.townnews.com/stltoday.com/content/tncms/assets/v3/editorial/f/bb/fbbfad4a-2c00-5d79-83bf-33859b3dcae4/59353d651d5f9.image.jpg?crop=1600%2C840%2C0%2C113&resize=1200%2C630&order=crop%2Cresize', 'https://www.stltoday.com/life-entertainment/local/music/metallica-returns-to-st-louis-with-2-shows-and-a-weekend-of-events-planned/article_fe716de8-7754-11ee-8708-0b4bb4391e2a.html'),
+('The Soundtrack of Our Lives: A Reading List on Pop Concerts', 'The Soundtrack of Our Lives: A Reading List on Pop Concerts', 'It’s been a huge year for live music, so let’s take a tour.', 'https://i0.wp.com/longreads.com/wp-content/uploads/2023/11/Blank-2400-x-1400-6.png?fit=2400%2C1400&ssl=1', 'http://longreads.com/2023/11/14/the-soundtrack-of-our-lives-a-reading-list-on-pop-concerts/'),
+('The top 50 Halloween parties in Toronto for 2023', 'The top 50 Halloween parties in Toronto for 2023', 'Halloween parties are back in Toronto for 2023, so grab your besties and put on your favourite costume before heading out for a night on the town. With events ranging from tarot card readings to spooky ping pong battles, you\'re sure to find one to show off yo…', 'https://media.blogto.com/articles/20221031-HalloweenonChurch25.jpg?w=1200&cmd=resize_then_crop&height=630&quality=70', 'https://www.blogto.com/radar/2023/10/toronto-halloween-parties/'),
+('Warhammer Records: Brian May, bungled tours, and 40,000 hard rock anthems', 'Warhammer Records: Brian May, bungled tours, and 40,000 hard rock anthems', 'Grab your ax, because today we’re presenting the oral history of Warhammer Records, Games Workshop’s brief but sultry affair with the heavy metal scene.', 'https://cdn.vox-cdn.com/thumbor/_QD3HTDL3gPJTehd271ufewWcuE=/0x563:1198x1190/fit-in/1200x630/cdn.vox-cdn.com/uploads/chorus_asset/file/25073721/Screen_Shot_2023_11_10_at_10.59.36_AM.jpg', 'https://www.polygon.com/23954679/warhammer-records-oral-history-brian-may-john-blanche-metal-af');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `comments`
+--
+
+CREATE TABLE `comments` (
+  `comment_id` int(11) NOT NULL,
+  `article_id` varchar(255) DEFAULT NULL,
+  `username` varchar(255) NOT NULL,
+  `comment_text` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_croatian_ci;
+
+--
+-- Dumping data for table `comments`
+--
+
+INSERT INTO `comments` (`comment_id`, `article_id`, `username`, `comment_text`) VALUES
+(58, 'The Soundtrack of Our Lives: A Reading List on Pop Concerts', 'renatobela', 'Prvi!'),
+(59, 'The Soundtrack of Our Lives: A Reading List on Pop Concerts', 'renatobela', 'Drugi!'),
+(60, 'Warhammer Records: Brian May, bungled tours, and 40,000 hard rock anthems', 'markec', 'Prvi komentar');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `countries`
 --
 
@@ -31,7 +79,7 @@ CREATE TABLE `countries` (
   `id` int(11) NOT NULL,
   `country_code` varchar(2) NOT NULL DEFAULT '',
   `country_name` varchar(100) NOT NULL DEFAULT ''
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `countries`
@@ -287,32 +335,6 @@ INSERT INTO `countries` (`id`, `country_code`, `country_name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `news`
---
-
-CREATE TABLE `news` (
-  `id` int(11) NOT NULL,
-  `title` varchar(255) COLLATE cp1250_croatian_ci NOT NULL,
-  `description` text COLLATE cp1250_croatian_ci NOT NULL,
-  `picture` varchar(255) COLLATE cp1250_croatian_ci NOT NULL,
-  `date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `archive` enum('N','Y') COLLATE cp1250_croatian_ci NOT NULL DEFAULT 'N',
-  `tip` varchar(10) COLLATE cp1250_croatian_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=cp1250 COLLATE=cp1250_croatian_ci;
-
---
--- Dumping data for table `news`
---
-
-INSERT INTO `news` (`id`, `title`, `description`, `picture`, `date`, `archive`, `tip`) VALUES
-(8, 'Nova nada hrvatskog Jazza.', 'Maldi umjetnik Joško Đezić je odmalena strastveni ljubitelj glazbe. S 15 je završio glazbenu akademiju. S novonastalim bendom će izbaciti svoj debutni album 12.12.2021. Kako Joško sam kaže, taj album biti će najveći hit u zadnjih 150 godina na ovim prostorima, izuzev Johhnya, Balaševića i Arsena Dedića. Radujemo se vidjeti njihove koncerte uskoro u nekim boljim vremenima.', '8-76.jpg', '2021-06-12 18:57:24', 'N', 'music'),
-(10, 'Novi koncert', 'Koncert u počast Đorđe Balaševića. Nakon njegove prenagle smrti mnogi ljudi su plakali i teška srca položili svijeće na trgove. Istina je da je on bio jedan od rijetkih ali baš zato njegova smrt nije i njegov kraj. Njegove pjesme sve su nas inspirirale i mnogima označile velike trenutke u životu. Ovo je prilika za oproštaj od tog istinski velikog čovjeka. Koncert se održava 14.7.2021 i slobodan je ulaz za sve koji su voljni.', '10-70.jpg', '2021-06-12 19:51:19', 'N', 'event'),
-(11, 'Azrin koncert', 'Koncert u počast Azre. Nakon njihovog naglog raspada mnogi ljudi su plakali i teška srca prihvatili istinu. Istina je da su oni bili jedni od rijetkih ali baš zato njihov raspad nije i njihov kraj. Johhnyove pjesme sve su nas inspirirale i mnogima označile velike trenutke u životu. Ovo je prilika za oproštaj od tog istinski velikog benda. Koncert se održava 17.2.2022 i slobodan je ulaz za sve koji su voljni.', '11-55.jpg', '2021-06-12 19:54:50', 'N', 'event'),
-(12, 'Novi Tamburaši', 'Maldi umjetnik Mislav Babić je odmalena strastveni ljubitelj glazbe. S 11 je poceo svirati tamburu. S novonastalim bendom će izbaciti svoj debutni album 12.12.2021. Kako Mislav sam kaže, taj album biti će najveći hit u zadnjih 150 godina na ovim prostorima, izuzev Šabana Šaulića, Zvonka Bogdana i Slavonskih Loli. Radujemo se vidjeti njihove koncerte uskoro u nekim boljim vremenima.', '12-24.jpg', '2021-06-12 19:57:37', 'N', 'music');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `users`
 --
 
@@ -325,30 +347,39 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL,
   `country` char(2) NOT NULL,
   `date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `archive` enum('Y','N') NOT NULL DEFAULT 'Y'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `archive` enum('Y','N') NOT NULL DEFAULT 'Y',
+  `role` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `firstname`, `lastname`, `email`, `username`, `password`, `country`, `date`, `archive`) VALUES
-(1, 'Renato', 'Belosevic', 'renato.belosevic@gmail.com', 'rbela', '$2y$12$DZGNE6hlcIddc0pRZQf/QOAnSPbrmye2z10lmi3jKctXO0zBpwBgS', 'AW', '2021-06-12 11:24:31', 'Y');
+INSERT INTO `users` (`id`, `firstname`, `lastname`, `email`, `username`, `password`, `country`, `date`, `archive`, `role`) VALUES
+(5, 'Admin', 'Admin', 'admin@admin.ad', 'admin', '$2y$12$x1p3QOy0PwR/eaM5vQYB2OR0sqSV1uIk/U/6SuKE6TTqq5d.S8NzC', 'AD', '2023-11-15 21:35:47', 'Y', 1),
+(8, 'Franjo', 'Markec', 'fmarkec@gmail.com', 'markec', '$2y$12$g30enh3m2lW615e72DaEQup0FURmA2LlYAbSBvOmn0dIr7o7eMN3y', 'AU', '2023-11-16 13:22:40', 'Y', 0);
 
 --
 -- Indexes for dumped tables
 --
 
 --
+-- Indexes for table `articles`
+--
+ALTER TABLE `articles`
+  ADD PRIMARY KEY (`article_id`);
+
+--
+-- Indexes for table `comments`
+--
+ALTER TABLE `comments`
+  ADD PRIMARY KEY (`comment_id`),
+  ADD KEY `article_id` (`article_id`);
+
+--
 -- Indexes for table `countries`
 --
 ALTER TABLE `countries`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `news`
---
-ALTER TABLE `news`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -362,22 +393,32 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `comments`
+--
+ALTER TABLE `comments`
+  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+
+--
 -- AUTO_INCREMENT for table `countries`
 --
 ALTER TABLE `countries`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=246;
 
 --
--- AUTO_INCREMENT for table `news`
---
-ALTER TABLE `news`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
---
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `comments`
+--
+ALTER TABLE `comments`
+  ADD CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`article_id`) REFERENCES `articles` (`article_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
